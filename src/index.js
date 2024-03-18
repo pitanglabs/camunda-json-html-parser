@@ -4,10 +4,10 @@ import {
   promptConversion,
   promptInputFileName,
   promptOutputFileName,
-} from "./prompt";
+} from "./prompt.js";
 
-import { convertJsonToHtml } from "./parse_json_to_html";
-import { convertHtmlToJson } from "./parse_html_to_json";
+import { convertJsonToHtml } from "./parse_json_to_html.js";
+import { convertHtmlToJson } from "./parse_html_to_json.js";
 
 (async () => {
   const conversion = await promptConversion();

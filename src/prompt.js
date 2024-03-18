@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { validateInputFile } from "./validate";
+import { validateInputFile } from "./validate.js";
 
 const conversion_options = ["JSON to HTML", "HTML to JSON"];
 
