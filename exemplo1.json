@@ -1,0 +1,104 @@
+{
+  "components": [
+    {
+      "label": "Nome Completo",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_11985fd",
+        "columns": null
+      },
+      "id": "Field_1t2w2yk",
+      "key": "tf_nomeCompleto",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "E-mail",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_19vmoic",
+        "columns": null
+      },
+      "id": "Field_0umiicp",
+      "key": "tf_email",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Telefone",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0jgmqnj",
+        "columns": null
+      },
+      "id": "Field_0hp1dm5",
+      "key": "tf_telefone",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "CPF",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_071npy9",
+        "columns": null
+      },
+      "id": "Field_0a5sn5f",
+      "key": "tf_cpf",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "Certidão de Nascimento",
+          "value": "nascimento"
+        },
+        {
+          "label": "Certidão de Casamento",
+          "value": "casamento"
+        }
+      ],
+      "label": "Certidão",
+      "type": "select",
+      "layout": {
+        "row": "Row_1e9cofi",
+        "columns": null
+      },
+      "id": "Field_16nfzv1",
+      "key": "select_certidao",
+      "defaultValue": "<none>"
+    },
+    {
+      "label": "Importar Arquivo",
+      "type": "upload",
+      "layout": {
+        "row": "Row_1tqqrje",
+        "columns": null
+      },
+      "id": "Field_09nx37t",
+      "key": "documentosUpload"
+    },
+    {
+      "label": "Number",
+      "type": "number",
+      "layout": {
+        "row": "Row_1ofr2dq",
+        "columns": null
+      },
+      "id": "Field_1gqxz0p",
+      "key": "number_mpq2tn6"
+    }
+  ],
+  "schemaVersion": 15,
+  "exporter": {
+    "name": "form-js (https://demo.bpmn.io)",
+    "version": "1.7.1"
+  },
+  "type": "default",
+  "id": "Form_0cbtq3o"
+}
