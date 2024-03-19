@@ -17,7 +17,7 @@ To use this library in your project, follow these steps:
 
    ```json
    "dependencies": {
-    "your-library-name": "git+https://github.com/yourusername/your-repo.git"
+     "camunda-json-html-parser": "git+https://github.com/pitanglabs/camunda-json-html-parser.git"
    }
    ```
 1. Run `npm install` to install the library and its dependencies.
