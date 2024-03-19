@@ -1,123 +1,15 @@
-<form role="form" name="solicitarCertidaoForm" class="form-horizontal">
-  <div class="form-group">
-    <label class="control-label col-md-4" for="tf_nomeCompleto"
-      >Nome completo</label
-    >
-    <div class="col-md-8">
-      <input
-        cam-variable-name="tf_nomeCompleto"
-        cam-variable-type="String"
-        id="tf_nomeCompleto"
-        name="tf_nomeCompleto"
-        class="form-control"
-        type="text"
-        pattern="^[a-zA-Z ]+$"
-        required
-      />
-    </div>
-  </div>
+<form role="form" name="form" class="form-horizontal"><div class="form-group"><label class="control-label col-md-4" for="tf_nomeCompleto">Nome Completo</label><div class="col-md-8"><input cam-variable-name="tf_nomeCompleto" cam-variable-type="String" id="tf_nomeCompleto" name="tf_nomeCompleto" class="form-control" type="text" pattern="^[a-zA-Z ]+$" required="true"></div></div><div class="form-group"><label class="control-label col-md-4" for="tf_email">E-mail</label><div class="col-md-8"><input cam-variable-name="tf_email" cam-variable-type="String" id="tf_email" name="tf_email" class="form-control" type="text" pattern="^[a-zA-Z ]+$" required="true"></div></div><div class="form-group"><label class="control-label col-md-4" for="tf_telefone">Telefone</label><div class="col-md-8"><input cam-variable-name="tf_telefone" cam-variable-type="String" id="tf_telefone" name="tf_telefone" class="form-control" type="text" pattern="^[a-zA-Z ]+$" required="true"></div></div><div class="form-group"><label class="control-label col-md-4" for="tf_cpf">CPF</label><div class="col-md-8"><input cam-variable-name="tf_cpf" cam-variable-type="String" id="tf_cpf" name="tf_cpf" class="form-control" type="text" pattern="^[a-zA-Z ]+$" required="true"></div></div><div class="form-group"><label class="control-label col-md-4" for="select_certidao">Certidão</label><div class="col-md-8"><select cam-variable-name="select_certidao" cam-variable-type="String" class="form-control" name="select_certidao" id="select_certidao"><option value="nascimento">Certidão de Nascimento</option><option value="casamento">Certidão de Casamento</option></select></div></div><div class="form-group"><label class="control-label col-md-4" for="documentosUpload">Importar Arquivo</label><div class="col-md-8"><input type="file" id="documentosUpload" cam-variable-name="documentosUpload" cam-variable-type="File" cam-max-filesize="10000000" class="form-control" multiple="true" accept="application/pdf,application/vnd.ms-excel"></div></div><div class="form-group"><label class="control-label col-md-4" for="number_mpq2tn6">Number</label><div class="col-md-8"><input type="number" id="number_mpq2tn6" class="form-control"></div></div><div class="form-group"><label class="control-label col-md-4" for="null">Documentos Importados</label><div class="form-control-static col-md-8"><a cam-file-download="documentosUpload"></a></div></div><script cam-script="" type="text/form-script">
+  var fileUpload = $('#documentosUpload');
+  var fileUploadHelpBlock = $('.help-block', fileUpload.parent());
 
-  <div class="form-group">
-    <label class="control-label col-md-4" for="tf_email">E-mail</label>
-    <div class="col-md-8">
-      <input
-        cam-variable-name="tf_email"
-        cam-variable-type="String"
-        id="tf_email"
-        name="tf_email"
-        class="form-control"
-        type="text"
-        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        required
-      />
+  function flagFileUpload() {
+    var hasFile = fileUpload.get(0).files.length > 0;
+    fileUpload[hasFile ? 'removeClass' : 'addClass']('ng-invalid');
+    fileUploadHelpBlock[hasFile ? 'removeClass' : 'addClass']('error');
+    return hasFile;
+  }
 
-      <!-- <p ng-show="solicitarCertidaoForm.tf_email.$error.pattern">
-        O e-mail fornecido é inválido.
-      </p> -->
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label col-md-4" for="tf_telefone">Telefone</label>
-    <div class="col-md-8">
-      <input
-        cam-variable-name="tf_telefone"
-        cam-variable-type="String"
-        id="tf_telefone"
-        name="tf_telefone"
-        class="form-control"
-        type="text"
-        pattern="^\(\d{2}\) 9?\d{4}-\d{4}$"
-        required
-      />
-      <div class="help">(DDD) 9XXXX-XXXX</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label col-md-4" for="tf_cpf">CPF</label>
-    <div class="col-md-8">
-      <input
-        cam-variable-name="tf_cpf"
-        cam-variable-type="String"
-        id="tf_cpf"
-        name="tf_cpf"
-        class="form-control"
-        type="text"
-        pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$"
-        required
-      />
-      <div class="help">XXX.XXX.XXX-XX</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label col-md-4" for="select_certidao">Certidão</label>
-    <div class="col-md-8">
-      <select
-        cam-variable-name="select_certidao"
-        cam-variable-type="String"
-        class="form-control"
-        name="select_certidao"
-        id="select_certidao"
-      >
-        <option value="nascimento">Certidão de Nascimento</option>
-        <option value="casamento">Certidão de Casamento</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label col-md-4" for="documentosUpload"
-      >Importar documentos</label
-    >
-    <div class="col-md-8">
-      <input
-        type="file"
-        id="documentosUpload"
-        cam-variable-name="documentosUpload"
-        cam-variable-type="File"
-        cam-max-filesize="10000000"
-        class="form-control"
-        multiple
-        accept="application/pdf,application/vnd.ms-excel"
-      />
-    </div>
-  </div>
-
-  <script cam-script type="text/form-script">
-    var fileUpload = $('#documentosUpload');
-    var fileUploadHelpBlock = $('.help-block', fileUpload.parent());
-
-    function flagFileUpload() {
-      var hasFile = fileUpload.get(0).files.length > 0;
-      fileUpload[hasFile ? 'removeClass' : 'addClass']('ng-invalid');
-      fileUploadHelpBlock[hasFile ? 'removeClass' : 'addClass']('error');
-      return hasFile;
-    }
-
-    fileUpload.on('change', function () {
-      flagFileUpload();
-    });
-  </script>
-</form>
+  fileUpload.on('change', function () {
+    flagFileUpload();
+  });
+</script></form>

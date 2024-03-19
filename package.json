@@ -9,8 +9,8 @@
     "jsdom": "^24.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --experimental-specifier-resolution=node src/index.js",
+    "test": "node --experimental-specifier-resolution=node src/test.js",
     "prettier": "npx prettier . --write"
   },
   "author": "",
