@@ -161,8 +161,6 @@ function createHtmlInputField(key, type, required) {
         "pattern",
         "[(]?[0-9]{2}[)]?([9]{1})?([0-9]{4}([-]?)[0-9]{4})",
       );
-    } else {
-      inputField.setAttribute("pattern", "^[a-zA-Z ]+$");
     }
   }
 
