@@ -1,4 +1,3 @@
-
 import fs from "fs";
 
 import {
@@ -14,6 +13,7 @@ import { convertHtmlToJson } from "./parse_html_to_json.js";
   const conversion = await promptConversion();
   const inputFileName = await promptInputFileName();
   const outputFileName = await promptOutputFileName();
+
   const inputFile = fs.readFileSync(inputFileName, "utf8");
 
   if (conversion == "JSON to HTML") {
