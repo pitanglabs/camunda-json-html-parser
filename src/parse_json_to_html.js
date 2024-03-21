@@ -156,7 +156,7 @@ function createHtmlInputField(key, type, required) {
       );
     } else if (key.includes("email")) {
       inputField.setAttribute("pattern", "^[w-.]+@([w-]+.)+[w-]{2,4}$");
-    } else if (key.includes("telefone")) {
+    } else if (key.includes("telefone") || key.includes("phone")) {
       inputField.setAttribute(
         "pattern",
         "[(]?[0-9]{2}[)]?([9]{1})?([0-9]{4}([-]?)[0-9]{4})",
