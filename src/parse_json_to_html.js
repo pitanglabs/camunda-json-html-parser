@@ -149,7 +149,25 @@ function createHtmlInputField(key, type, required) {
 
   if (type === "textfield") {
     inputField.setAttribute("type", "text");
-    inputField.setAttribute("pattern", "^[a-zA-Z ]+$");
+    switch (key) {
+      case "tf_cpf":
+        inputField.setAttribute(
+          "pattern",
+          "([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})",
+        );
+        break;
+      case "tf_email":
+        inputField.setAttribute("pattern", "^[w-.]+@([w-]+.)+[w-]{2,4}$");
+        break;
+      case "tf_telefone":
+        inputField.setAttribute(
+          "pattern",
+          "[(]?[0-9]{2}[)]?([9]{1})?([0-9]{4}([-]?)[0-9]{4})",
+        );
+        break;
+      default:
+        inputField.setAttribute("pattern", "^[a-zA-Z ]+$");
+    }
   }
 
   if (required) {

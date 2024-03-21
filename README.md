@@ -20,13 +20,17 @@ To use this library in your project, follow these steps:
      "camunda-json-html-parser": "git+https://github.com/pitanglabs/camunda-json-html-parser.git"
    }
    ```
+
 1. Run `npm install` to install the library and its dependencies.
 1. Now you can import and use the functions exported by the library in your project:
 
    ```js
-   import { convertHtmlToJson, convertJsonToHtml } from 'camunda-json-html-parser';
+   import {
+     convertHtmlToJson,
+     convertJsonToHtml,
+   } from "camunda-json-html-parser";
 
-   const convertedJson = convertHtmlToJson("<camunda form />") 
+   const convertedJson = convertHtmlToJson("<camunda form />");
    ```
 
 ## Test
@@ -37,16 +41,19 @@ To use this library in your project, follow these steps:
    ```bash
    $ cd camunda-json-html-parser
    ```
+
 1. Install dependencies:
 
    ```bash
    $ npm install
    ```
+
 1. Run the test application:
 
    ```bash
    $ npm run test
    ```
+
 1. Follow the Prompts:
    - Choose the conversion type (JSON to HTML or HTML to JSON).
    - Enter the input and output file paths.
