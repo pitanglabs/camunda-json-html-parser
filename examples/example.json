@@ -85,6 +85,16 @@
       "key": "documentosUpload"
     },
     {
+      "label": "Documentos Importados",
+      "type": "document-visualize",
+      "layout": {
+        "row": "Row_2vwwgke",
+        "columns": null
+      },
+      "id": "Field_59mg12h",
+      "key": "visualizeDocuments"
+    },
+    {
       "label": "Number",
       "type": "number",
       "layout": {
