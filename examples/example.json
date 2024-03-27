@@ -36,7 +36,8 @@
       "id": "Field_0hp1dm5",
       "key": "tf_telefone",
       "validate": {
-        "required": true
+        "required": true,
+        "pattern": "/^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$/"
       }
     },
     {
