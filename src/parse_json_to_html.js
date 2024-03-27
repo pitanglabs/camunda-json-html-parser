@@ -10,17 +10,9 @@ export function convertJsonToHtml(inputFile) {
   const jsonInput = parseJsonContent(inputFile);
   const jsonComponents = jsonInput.components;
 
-  const uploadComponent = jsonComponents.filter((component) => {
-    return component.type === "upload";
-  })[0];
-
   let divComponents = jsonComponents.map((component) =>
     convertJsonComponentToHtmlDiv(component),
   );
-
-  if (uploadComponent) {
-    divComponents.push(createUploadedDocumentsDiv(uploadComponent));
-  }
 
   const scriptComponents = jsonComponents
     .filter((component) => component.type === "upload")
@@ -54,6 +46,10 @@ function convertJsonComponentToHtmlDiv(component) {
   const inputWrapper = document.createElement("div");
   inputWrapper.classList.add("col-md-8");
 
+  if (component.type === "document-visualize") {
+    inputWrapper.classList.add("form-control-static");
+  }
+
   const inputComponent = createInputComponent(component);
 
   if (inputComponent !== undefined) {
@@ -61,25 +57,6 @@ function convertJsonComponentToHtmlDiv(component) {
     formGroup.appendChild(label);
     formGroup.appendChild(inputWrapper);
   }
-
-  return formGroup;
-}
-
-function createUploadedDocumentsDiv(uploadComponent) {
-  const formGroup = document.createElement("div");
-  formGroup.classList.add("form-group");
-
-  const label = createHtmlLabel(null, "Documentos Importados");
-
-  const formControl = document.createElement("div");
-  formControl.classList.add("form-control-static", "col-md-8");
-
-  const downloadLink = document.createElement("a");
-  downloadLink.setAttribute("cam-file-download", uploadComponent.key);
-
-  formControl.appendChild(downloadLink);
-  formGroup.appendChild(label);
-  formGroup.appendChild(formControl);
 
   return formGroup;
 }
@@ -136,6 +113,9 @@ function createInputComponent(component) {
     }
     case "number": {
       return createHtmlNumberField(key);
+    }
+    case "document-visualize": {
+      return createHtmlDocumentVisualizeField(key);
     }
   }
   // TODO: definir default
@@ -201,4 +181,10 @@ function createHtmlNumberField(key) {
   inputField.setAttribute("id", key);
   inputField.setAttribute("class", "form-control");
   return inputField;
+}
+
+function createHtmlDocumentVisualizeField(key) {
+  const field = document.createElement("a");
+  field.setAttribute("cam-file-download", key);
+  return field;
 }
