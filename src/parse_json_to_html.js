@@ -18,7 +18,9 @@ export function convertJsonToHtml(inputFile) {
     convertJsonComponentToHtmlDiv(component),
   );
 
-  divComponents.push(createUploadedDocumentsDiv(uploadComponent));
+  if (uploadComponent) {
+    divComponents.push(createUploadedDocumentsDiv(uploadComponent));
+  }
 
   const scriptComponents = jsonComponents
     .filter((component) => component.type === "upload")
