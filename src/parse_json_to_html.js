@@ -122,7 +122,8 @@ function createInputComponent(component) {
   switch (type) {
     case "textfield": {
       const isRequired = component.validate && component.validate.required;
-      return createHtmlInputField(key, type, isRequired);
+      const hasPattern = component.validate && component.validate.pattern;
+      return createHtmlInputField(key, type, isRequired, hasPattern);
     }
     case "select": {
       const optionValues = component.values;
@@ -139,7 +140,7 @@ function createInputComponent(component) {
   return createHtmlInputField(key, type, true);
 }
 
-function createHtmlInputField(key, type, required) {
+function createHtmlInputField(key, type, required, pattern) {
   const inputField = document.createElement("input");
   inputField.setAttribute("cam-variable-name", key);
   inputField.setAttribute("cam-variable-type", "String");
@@ -149,24 +150,8 @@ function createHtmlInputField(key, type, required) {
 
   if (type === "textfield") {
     inputField.setAttribute("type", "text");
-    switch (key) {
-      case "tf_cpf":
-        inputField.setAttribute(
-          "pattern",
-          "([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})",
-        );
-        break;
-      case "tf_email":
-        inputField.setAttribute("pattern", "^[w-.]+@([w-]+.)+[w-]{2,4}$");
-        break;
-      case "tf_telefone":
-        inputField.setAttribute(
-          "pattern",
-          "[(]?[0-9]{2}[)]?([9]{1})?([0-9]{4}([-]?)[0-9]{4})",
-        );
-        break;
-      default:
-        inputField.setAttribute("pattern", "^[a-zA-Z ]+$");
+    if (pattern) {
+      inputField.setAttribute("pattern", pattern);
     }
   }
 
