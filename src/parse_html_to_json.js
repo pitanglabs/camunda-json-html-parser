@@ -1,9 +1,6 @@
-import { JSDOM } from "jsdom";
-
-export function convertHtmlToJson(inputFile) {
+export function convertHtmlToJson(htmlInput) {
   console.log("Converting HTML to JSON");
   // Parse the HTML content
-  const htmlInput = parseHtmlContent(inputFile);
   const htmlComponents = parseHtmlComponents(htmlInput);
 
   return {
@@ -16,12 +13,6 @@ export function convertHtmlToJson(inputFile) {
     type: "default",
     id: "Form_0cbtq3o",
   };
-}
-
-function parseHtmlContent(content) {
-  const dom = new JSDOM(content);
-  const document = dom.window.document;
-  return document;
 }
 
 function parseHtmlComponents(htmlInput) {
