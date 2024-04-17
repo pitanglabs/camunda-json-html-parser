@@ -14,12 +14,16 @@ export function convertJsonToHtml(domDocument, inputFile) {
   );
 
   if (uploadComponent) {
-    divComponents.push(createUploadedDocumentsDiv(domDocument, uploadComponent));
+    divComponents.push(
+      createUploadedDocumentsDiv(domDocument, uploadComponent),
+    );
   }
 
   const scriptComponents = jsonComponents
     .filter((component) => component.type === "upload")
-    .map((component) => convertJsonComponentToUploadScript(domDocument, component));
+    .map((component) =>
+      convertJsonComponentToUploadScript(domDocument, component),
+    );
 
   const htmlForm = createHtmlForm(domDocument, "form");
   divComponents.forEach((component) => htmlForm.appendChild(component));

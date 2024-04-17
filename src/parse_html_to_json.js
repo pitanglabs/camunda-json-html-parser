@@ -1,6 +1,10 @@
-export function convertHtmlToJson(htmlInput) {
+import { JSDOM } from "jsdom";
+
+export function convertHtmlToJson(inputFile) {
+  // export function convertHtmlToJson(htmlInput) {
   console.log("Converting HTML to JSON");
   // Parse the HTML content
+  const htmlInput = parseHtmlContent(inputFile);
   const htmlComponents = parseHtmlComponents(htmlInput);
 
   return {
@@ -13,6 +17,12 @@ export function convertHtmlToJson(htmlInput) {
     type: "default",
     id: "Form_0cbtq3o",
   };
+}
+
+function parseHtmlContent(content) {
+  const dom = new JSDOM(content);
+  const document = dom.window.document;
+  return document;
 }
 
 function parseHtmlComponents(htmlInput) {
@@ -60,6 +70,7 @@ function parseFormGroup(formGroup) {
 }
 
 function resolveInputType(input) {
+  console.log(input.tagName);
   const inputTag = input.tagName.toLowerCase();
   const inputType = input.getAttribute("type");
   if (inputTag === "select") {
