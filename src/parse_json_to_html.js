@@ -1,24 +1,27 @@
-import { JSDOM } from "jsdom";
-
-// Create a new JSDOM instance to simulate a browser environment
-const { window } = new JSDOM();
-const document = window.document;
-
-export function convertJsonToHtml(inputFile) {
+export function convertJsonToHtml(domDocument, inputFile) {
+  console.log("dom document", domDocument);
   console.log("Converting JSON to HTML");
 
   const jsonInput = parseJsonContent(inputFile);
   const jsonComponents = jsonInput.components;
 
   let divComponents = jsonComponents.map((component) =>
-    convertJsonComponentToHtmlDiv(component),
+    convertJsonComponentToHtmlDiv(domDocument, component),
   );
+
+  if (uploadComponent) {
+    divComponents.push(
+      createUploadedDocumentsDiv(domDocument, uploadComponent),
+    );
+  }
 
   const scriptComponents = jsonComponents
     .filter((component) => component.type === "upload")
-    .map((component) => convertJsonComponentToUploadScript(component));
+    .map((component) =>
+      convertJsonComponentToUploadScript(domDocument, component),
+    );
 
-  const htmlForm = createHtmlForm("form");
+  const htmlForm = createHtmlForm(domDocument, "form");
   divComponents.forEach((component) => htmlForm.appendChild(component));
   scriptComponents.forEach((component) => htmlForm.appendChild(component));
 
@@ -29,7 +32,7 @@ function parseJsonContent(content) {
   return JSON.parse(content);
 }
 
-function createHtmlForm(formName) {
+function createHtmlForm(document, formName) {
   const htmlForm = document.createElement("form");
   htmlForm.setAttribute("role", "form");
   htmlForm.setAttribute("name", formName);
@@ -37,11 +40,11 @@ function createHtmlForm(formName) {
   return htmlForm;
 }
 
-function convertJsonComponentToHtmlDiv(component) {
+function convertJsonComponentToHtmlDiv(document, component) {
   const formGroup = document.createElement("div");
   formGroup.classList.add("form-group");
 
-  const label = createHtmlLabel(component.key, component.label);
+  const label = createHtmlLabel(document, component.key, component.label);
 
   const inputWrapper = document.createElement("div");
   inputWrapper.classList.add("col-md-8");
@@ -61,7 +64,26 @@ function convertJsonComponentToHtmlDiv(component) {
   return formGroup;
 }
 
-function convertJsonComponentToUploadScript(component) {
+function createUploadedDocumentsDiv(document, uploadComponent) {
+  const formGroup = document.createElement("div");
+  formGroup.classList.add("form-group");
+
+  const label = createHtmlLabel(document, null, "Documentos Importados");
+
+  const formControl = document.createElement("div");
+  formControl.classList.add("form-control-static", "col-md-8");
+
+  const downloadLink = document.createElement("a");
+  downloadLink.setAttribute("cam-file-download", uploadComponent.key);
+
+  formControl.appendChild(downloadLink);
+  formGroup.appendChild(label);
+  formGroup.appendChild(formControl);
+
+  return formGroup;
+}
+
+function convertJsonComponentToUploadScript(document, component) {
   const key = component.key;
   const scriptElement = document.createElement("script");
   scriptElement.setAttribute("cam-script", "");
@@ -87,7 +109,7 @@ function convertJsonComponentToUploadScript(component) {
   return scriptElement;
 }
 
-function createHtmlLabel(key, label) {
+function createHtmlLabel(document, key, label) {
   const htmlLabel = document.createElement("label");
   htmlLabel.classList.add("control-label", "col-md-4");
   htmlLabel.setAttribute("for", key);
@@ -95,34 +117,34 @@ function createHtmlLabel(key, label) {
   return htmlLabel;
 }
 
-function createInputComponent(component) {
+function createInputComponent(document, component) {
   const { key, type } = component;
 
   switch (type) {
     case "textfield": {
       const isRequired = component.validate && component.validate.required;
       const hasPattern = component.validate && component.validate.pattern;
-      return createHtmlInputField(key, type, isRequired, hasPattern);
+      return createHtmlInputField(document, key, type, isRequired, hasPattern);
     }
     case "select": {
       const optionValues = component.values;
-      return createHtmlSelectField(key, optionValues);
+      return createHtmlSelectField(document, key, optionValues);
     }
     case "upload": {
-      return createHtmlUploadField(key);
+      return createHtmlUploadField(document, key);
     }
     case "number": {
-      return createHtmlNumberField(key);
+      return createHtmlNumberField(document, key);
     }
     case "document-visualize": {
       return createHtmlDocumentVisualizeField(key);
     }
   }
   // TODO: definir default
-  return createHtmlInputField(key, type, true);
+  return createHtmlInputField(document, key, type, true);
 }
 
-function createHtmlInputField(key, type, required, pattern) {
+function createHtmlInputField(document, key, type, required, pattern) {
   const inputField = document.createElement("input");
   inputField.setAttribute("cam-variable-name", key);
   inputField.setAttribute("cam-variable-type", "String");
@@ -143,7 +165,7 @@ function createHtmlInputField(key, type, required, pattern) {
   return inputField;
 }
 
-function createHtmlSelectField(key, optionValues) {
+function createHtmlSelectField(document, key, optionValues) {
   const selectField = document.createElement("select");
   selectField.setAttribute("cam-variable-name", key);
   selectField.setAttribute("cam-variable-type", "String");
@@ -162,7 +184,7 @@ function createHtmlSelectField(key, optionValues) {
   return selectField;
 }
 
-function createHtmlUploadField(key) {
+function createHtmlUploadField(document, key) {
   const inputField = document.createElement("input");
   inputField.setAttribute("type", "file");
   inputField.setAttribute("id", key);
@@ -175,7 +197,7 @@ function createHtmlUploadField(key) {
   return inputField;
 }
 
-function createHtmlNumberField(key) {
+function createHtmlNumberField(document, key) {
   const inputField = document.createElement("input");
   inputField.setAttribute("type", "number");
   inputField.setAttribute("id", key);
