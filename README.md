@@ -30,7 +30,8 @@ To use this library in your project, follow these steps:
      convertJsonToHtml,
    } from "camunda-json-html-parser";
 
-   const convertedJson = convertHtmlToJson("<camunda form />");
+   // Provide the browser DOM Document (window.document)
+   const convertedHtml = convertJsonToHtml(document, jsonContent);
    ```
 
 ## Test

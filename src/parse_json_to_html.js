@@ -5,6 +5,10 @@ export function convertJsonToHtml(domDocument, inputFile) {
   const jsonInput = parseJsonContent(inputFile);
   const jsonComponents = jsonInput.components;
 
+  const uploadComponent = jsonComponents.filter((component) => {
+    return component.type === "upload";
+  })[0];
+
   let divComponents = jsonComponents.map((component) =>
     convertJsonComponentToHtmlDiv(domDocument, component),
   );
@@ -49,11 +53,7 @@ function convertJsonComponentToHtmlDiv(document, component) {
   const inputWrapper = document.createElement("div");
   inputWrapper.classList.add("col-md-8");
 
-  if (component.type === "document-visualize") {
-    inputWrapper.classList.add("form-control-static");
-  }
-
-  const inputComponent = createInputComponent(component);
+  const inputComponent = createInputComponent(document, component);
 
   if (inputComponent !== undefined) {
     inputWrapper.appendChild(inputComponent);
@@ -136,9 +136,6 @@ function createInputComponent(document, component) {
     case "number": {
       return createHtmlNumberField(document, key);
     }
-    case "document-visualize": {
-      return createHtmlDocumentVisualizeField(key);
-    }
   }
   // TODO: definir default
   return createHtmlInputField(document, key, type, true);
@@ -203,10 +200,4 @@ function createHtmlNumberField(document, key) {
   inputField.setAttribute("id", key);
   inputField.setAttribute("class", "form-control");
   return inputField;
-}
-
-function createHtmlDocumentVisualizeField(key) {
-  const field = document.createElement("a");
-  field.setAttribute("cam-file-download", key);
-  return field;
 }

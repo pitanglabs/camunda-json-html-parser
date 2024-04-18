@@ -70,7 +70,6 @@ function parseFormGroup(formGroup) {
 }
 
 function resolveInputType(input) {
-  console.log(input.tagName);
   const inputTag = input.tagName.toLowerCase();
   const inputType = input.getAttribute("type");
   if (inputTag === "select") {
