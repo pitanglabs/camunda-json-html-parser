@@ -1,6 +1,7 @@
 import { JSDOM } from "jsdom";
 
 export function convertHtmlToJson(inputFile) {
+  // export function convertHtmlToJson(htmlInput) {
   console.log("Converting HTML to JSON");
   // Parse the HTML content
   const htmlInput = parseHtmlContent(inputFile);
@@ -69,6 +70,7 @@ function parseFormGroup(formGroup) {
 }
 
 function resolveInputType(input) {
+  console.log(input.tagName);
   const inputTag = input.tagName.toLowerCase();
   const inputType = input.getAttribute("type");
   if (inputTag === "select") {

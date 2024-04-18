@@ -1,4 +1,9 @@
 import fs from "fs";
+// import { JSDOM } from "jsdom";
+
+// // Create a new JSDOM instance to simulate a browser environment
+// const { window } = new JSDOM();
+// const document = window.document;
 
 import {
   promptConversion,
@@ -17,7 +22,8 @@ import { convertHtmlToJson } from "./parse_html_to_json.js";
   const inputFile = fs.readFileSync(inputFileName, "utf8");
 
   if (conversion == "JSON to HTML") {
-    const htmlContent = convertJsonToHtml(inputFile);
+    // Needs a DOM document to test, can create a mock one using JSDOM
+    const htmlContent = convertJsonToHtml(document, inputFile);
     const htmlText = htmlContent.outerHTML;
     fs.writeFileSync(outputFileName, htmlText);
   } else {
