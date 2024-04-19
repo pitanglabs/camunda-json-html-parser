@@ -28,6 +28,7 @@ export function convertHtmlToJson(inputFile) {
 // }
 
 function parseHtmlComponents(htmlInput) {
+  console.log('htmlInput',htmlInput)
   const formGroups = Array.from(
     htmlInput.querySelectorAll('form[class="form-horizontal"] .form-group'),
   );
@@ -39,6 +40,7 @@ function parseHtmlComponents(htmlInput) {
 }
 
 function parseFormGroup(formGroup) {
+  console.log('formGroup',formGroup)
   const label = formGroup.querySelector(".control-label").textContent.trim();
   const input = formGroup.querySelector("input, select");
   const inputType = resolveInputType(input);
