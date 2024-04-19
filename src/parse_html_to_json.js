@@ -42,7 +42,7 @@ function parseHtmlComponents(htmlInput) {
 function parseFormGroup(formGroup) {
   console.log('formGroup',formGroup)
   const label = formGroup.querySelector(".control-label").textContent.trim();
-  const input = formGroup.querySelector("input, select");
+  const input = formGroup.querySelector("input, select, a");
   const inputType = resolveInputType(input);
   const key = input.getAttribute("id");
   const validate = {};
