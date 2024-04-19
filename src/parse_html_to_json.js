@@ -1,11 +1,10 @@
-import { JSDOM } from "jsdom";
+//import { JSDOM } from "jsdom";
 
 export function convertHtmlToJson(inputFile) {
-  // export function convertHtmlToJson(htmlInput) {
   console.log("Converting HTML to JSON");
   // Parse the HTML content
-  const htmlInput = parseHtmlContent(inputFile);
-  const htmlComponents = parseHtmlComponents(htmlInput);
+  //const htmlInput = parseHtmlContent(inputFile);
+  const htmlComponents = parseHtmlComponents(inputFile);
 
   return {
     components: htmlComponents,
@@ -19,11 +18,14 @@ export function convertHtmlToJson(inputFile) {
   };
 }
 
-function parseHtmlContent(content) {
-  const dom = new JSDOM(content);
-  const document = dom.window.document;
-  return document;
-}
+// function parseHtmlContent(content) {
+//   console.log('content',content)
+//   const dom = new JSDOM(content);
+//   console.log('dom',dom)
+//   const document = dom.window.document;
+//   console.log('document',document)
+//   return document;
+// }
 
 function parseHtmlComponents(htmlInput) {
   const formGroups = Array.from(

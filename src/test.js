@@ -1,9 +1,9 @@
 import fs from "fs";
-// import { JSDOM } from "jsdom";
+import { JSDOM } from "jsdom";
 
-// // Create a new JSDOM instance to simulate a browser environment
-// const { window } = new JSDOM();
-// const document = window.document;
+// Create a new JSDOM instance to simulate a browser environment
+const { window } = new JSDOM();
+const document = window.document;
 
 import {
   promptConversion,
