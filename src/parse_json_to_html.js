@@ -77,7 +77,6 @@ function createUploadedDocumentsDiv(document, uploadComponent) {
   downloadLink.setAttribute("cam-file-download", uploadComponent.key);
 
   formControl.appendChild(downloadLink);
-  formGroup.appendChild(label);
   formGroup.appendChild(formControl);
 
   return formGroup;
@@ -124,7 +123,8 @@ function createInputComponent(document, component) {
     case "textfield": {
       const isRequired = component.validate && component.validate.required;
       const hasPattern = component.validate && component.validate.pattern;
-      return createHtmlInputField(document, key, type, isRequired, hasPattern);
+      const isReadOnly = component.validate && component.validate.readOnly;
+      return createHtmlInputField(document, key, type, isRequired, hasPattern, isReadOnly);
     }
     case "select": {
       const optionValues = component.values;
@@ -141,7 +141,7 @@ function createInputComponent(document, component) {
   return createHtmlInputField(document, key, type, true);
 }
 
-function createHtmlInputField(document, key, type, required, pattern) {
+function createHtmlInputField(document, key, type, required, pattern, readOnly) {
   const inputField = document.createElement("input");
   inputField.setAttribute("cam-variable-name", key);
   inputField.setAttribute("cam-variable-type", "String");
@@ -158,6 +158,10 @@ function createHtmlInputField(document, key, type, required, pattern) {
 
   if (required) {
     inputField.setAttribute("required", true);
+  }
+
+  if (readOnly) {
+    inputField.setAttribute("readonly", true);
   }
   return inputField;
 }
@@ -189,7 +193,6 @@ function createHtmlUploadField(document, key) {
   inputField.setAttribute("cam-variable-type", "File");
   inputField.setAttribute("cam-max-filesize", "10000000");
   inputField.setAttribute("class", "form-control");
-  inputField.setAttribute("multiple", "true");
   inputField.setAttribute("accept", "application/pdf,application/vnd.ms-excel");
   return inputField;
 }
